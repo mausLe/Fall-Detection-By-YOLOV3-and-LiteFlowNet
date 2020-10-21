@@ -177,11 +177,13 @@ def detect(save_img=False):
             # Print time (inference + NMS)
             print('%sDone. (%.3fs)' % (s, time.time() - t))
 
+            """
             # Stream results
             if view_img:
                 cv2.imshow(p, im0)
                 if cv2.waitKey(1) == ord('q'):  # q to quit
                     raise StopIteration
+            """
 
             # Save results (image with detections)
             if save_img:
