@@ -169,7 +169,7 @@ def detect(save_img=False):
                         color = [0, 255, 0]
 
 
-                    plot_one_box(xyxy, im0, label=label, color=color)
+                    result = plot_one_box(xyxy, im0, label=label, color=color)
 
             lastimg = img
             lastshow = im0s
@@ -200,11 +200,12 @@ def detect(save_img=False):
                         h = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
                         vid_writer = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*opt.fourcc), fps, (w, h))
                     vid_writer.write(im0)
-
+    """
     if save_txt or save_img:
         print('Results saved to %s' % os.getcwd() + os.sep + out)
         if platform == 'darwin':  # MacOS
             os.system('open ' + out + ' ' + save_path)
+    """
 
     print('Done. (%.3fs)' % (time.time() - t0))
 
@@ -220,6 +221,7 @@ if __name__ == '__main__':
     parser.add_argument('--conf-thres', type=float, default=0.3, help='object confidence threshold')
     parser.add_argument('--iou-thres', type=float, default=0.5, help='IOU threshold for NMS')
     parser.add_argument('--fourcc', type=str, default='mp4v', help='output video codec (verify ffmpeg support)')
+    
     parser.add_argument('--half', action='store_true', help='half precision FP16 inference')
     parser.add_argument('--device', default='', help='device id (i.e. 0 or 0,1) or cpu')
     parser.add_argument('--view-img', action='store_true', default=True, help='display results')
@@ -231,4 +233,4 @@ if __name__ == '__main__':
     print(opt)
 
     with torch.no_grad():
-        detect()
+        detect(True)
