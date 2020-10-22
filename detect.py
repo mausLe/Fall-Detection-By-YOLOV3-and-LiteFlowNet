@@ -83,9 +83,14 @@ def detect(save_img=False):
     t0 = time.time()
     flowcount = 0
     
-    fps = vid_cap.get(cv2.CAP_PROP_FPS)
-    w = h = img_size
-    vid_writer = cv2.VideoWriter("/content/fallDetect/output/demo.mp4", cv2.VideoWriter_fourcc(*opt.fourcc), fps, (w, h))
+    inDir = dataset.files
+    
+    inDir = inDir[0].split("/")
+    outDir = "/content/fallDetect/output/" + inDir[-1]
+    
+    fps = dataset.cap.get(cv2.CAP_PROP_FPS)
+    w = h = dataset.img_size # image size
+    vid_writer = cv2.VideoWriter(outDir, cv2.VideoWriter_fourcc(*opt.fourcc), fps, (w, h))
 
     for path, img, im0s, vid_cap in dataset:
         t = time.time()
