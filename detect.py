@@ -82,6 +82,11 @@ def detect(save_img=False):
     # Run inference
     t0 = time.time()
     flowcount = 0
+    
+    fps = vid_cap.get(cv2.CAP_PROP_FPS)
+    w = h = img_size
+    vid_writer = cv2.VideoWriter("/content/fallDetect/output/demo.mp4", cv2.VideoWriter_fourcc(*opt.fourcc), fps, (w, h))
+
     for path, img, im0s, vid_cap in dataset:
         t = time.time()
 
@@ -192,13 +197,13 @@ def detect(save_img=False):
                 else:
                     if vid_path != save_path:  # new video
                         vid_path = save_path
-                        if isinstance(vid_writer, cv2.VideoWriter):
-                            vid_writer.release()  # release previous video writer
 
+                        """
                         fps = vid_cap.get(cv2.CAP_PROP_FPS)
                         w = int(vid_cap.get(cv2.CAP_PROP_FRAME_WIDTH))
                         h = int(vid_cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
                         vid_writer = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*opt.fourcc), fps, (w, h))
+                        """
                     vid_writer.write(im0)
     """
     if save_txt or save_img:
@@ -206,7 +211,7 @@ def detect(save_img=False):
         if platform == 'darwin':  # MacOS
             os.system('open ' + out + ' ' + save_path)
     """
-
+    vid_writer.release()  # release previous video writer
     print('Done. (%.3fs)' % (time.time() - t0))
 
 
