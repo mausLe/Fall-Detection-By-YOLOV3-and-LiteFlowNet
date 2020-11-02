@@ -9,11 +9,13 @@ import os
 import PIL
 import PIL.Image
 import sys
-
+"""
 try:
 	from .correlation import correlation # the custom cost volume layer
 except:
 	sys.path.insert(0, './correlation'); import correlation # you should consider upgrading python
+"""
+from .correlation import correlation # the custom cost volume layer
 
 
 ##########################################################
